@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Resume</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <title>Xin Yun's Resume</title>
   <style>
     /* General Reset */
     * {
@@ -13,11 +15,14 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f5f5f0;
-      color: #6b4f4f;
-      line-height: 1.6;
-    }
+	  font-family: 'Poppins', sans-serif;
+	  background: linear-gradient(135deg, #f5f5f0, #e0d7cc);
+	  color: #6b4f4f;
+	  line-height: 1.6;
+	  margin: 0;
+	  padding: 0;
+	}
+
 
     /* Side Navigation */
     .side-nav {
@@ -136,6 +141,7 @@
     }
 
     section h2 {
+      text-align: center;
       font-size: 22px;
       margin-bottom: 15px;
       color: #6b4f4f;
@@ -151,14 +157,97 @@
       border-radius: 5px;
       margin-right: 5px;
       margin-bottom: 5px;
-      font-size: 14px;
+      font-size: 18px;
     }
+
+    .skills {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 15px;
+	  justify-content: center;
+	  margin: 20px 0;
+	}
+
+	.skill {
+	  display: flex;
+	  align-items: center;
+	  background: #6b4f4f;
+	  color: #f0e6d6;
+	  padding: 30px 15px;
+	  border-radius: 10px;
+	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	  transition: transform 0.3s, box-shadow 0.3s;
+	}
+
+	.skill:hover {
+	  transform: translateY(-5px);
+	  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+	}
+
+	.skill i {
+	  margin-right: 10px;
+	  font-size: 18px;
+	  color: #f0e6d6;
+	}
+
+	.skill span {
+	  font-size: 16px;
+	  font-weight: 500;
+	}
+
 	
 	.contact-a{
 	color: #f0e6d6;
 	text-decoration: none;
 	
 	}
+
+	#contact h2 {
+	  text-align: center;
+	  font-size: 24px;
+	  color: #6b4f4f;
+	  margin-bottom: 20px;
+	}
+
+	.contact {
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: center;
+	  gap: 20px;
+	}
+
+	.contact-item {
+	  display: flex;
+	  align-items: center;
+	  background: #6b4f4f;
+	  color: #f0e6d6;
+	  padding: 30px 15px;
+	  border-radius: 10px;
+	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	  transition: transform 0.3s, box-shadow 0.3s;
+	}
+
+	.contact-item:hover {
+	  transform: translateY(-5px);
+	  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+	}
+
+	.contact-item i {
+	  margin-right: 10px;
+	  font-size: 20px;
+	  color: #f0e6d6;
+	}
+
+	.contact-link {
+	  color: #f0e6d6;
+	  text-decoration: none;
+	  font-size: 16px;
+	}
+
+	.contact-link:hover {
+	  text-decoration: underline;
+	}
+
 
     ul {
       list-style-type: none;
@@ -189,8 +278,8 @@
     }
 
     .gallery img {
-      width: 100%;
-      max-height: 400px;
+      width: 70%;
+      height: 400px;
       display: none;
       transition: opacity 1s ease-in-out;
     }
@@ -199,6 +288,58 @@
       display: block;
       opacity: 1;
     }
+
+    #referee h2 {
+	  text-align: center;
+	  font-size: 24px;
+	  color: #6b4f4f;
+	  margin-bottom: 20px;
+	}
+
+	.referees {
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: center;
+	  gap: 20px;
+	}
+
+	.referee-card {
+	  background: #f0e6d6;
+	  color: #6b4f4f;
+	  border: 1px solid #6b4f4f;
+	  border-radius: 10px;
+	  padding: 15px;
+	  width: 300px;
+	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	  transition: transform 0.3s, box-shadow 0.3s;
+	}
+
+	.referee-card:hover {
+	  transform: translateY(-5px);
+	  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+	}
+
+	.referee-card h3 {
+	  margin: 0;
+	  font-size: 18px;
+	  color: #6b4f4f;
+	}
+
+	.referee-card p {
+	  margin: 5px 0;
+	  font-size: 14px;
+	}
+
+	.referee-card a {
+	  color: #6b4f4f;
+	  text-decoration: none;
+	}
+
+	.referee-card a:hover {
+	  text-decoration: underline;
+	}
+
+
 
     /* Media Queries */
     @media (max-width: 768px) {
@@ -227,7 +368,7 @@
     <a href="#gallery">Gallery</a>
 	<a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
-	<a href="#referee">Referee</a>
+	<a href="#referee">References</a>
   </div>
 
   <!-- Hamburger Icon -->
@@ -246,15 +387,15 @@
 
     <section id="about">
       <h2>About Me</h2>
-      <p>Results-driven fresh graduate with a Bachelor of Business Administration from Universiti Malaya. Proven track record in leadership, strategic planning, and team collaboration in university events. Known for excellent communication skills and strong execution skills.</p>
+      <p>Results-driven fresh graduate with a <b>Bachelor of Business Administration</b> from <b>Universiti Malaya</b>. Proven track record in <b>leadership, strategic planning, and team collaboration</b> in university events. Known for <b>excellent communication skills and strong execution skills</b>.</p>
     </section>
 	
     <section id="education">
       <h2>Education</h2>
       <ul>
-        <li><strong>Universiti Malaya</strong> (2020-2024)<br>Bachelor of Business Administration<br>CGPA: 3.88</li>
+        <li><strong>Universiti Malaya</strong> (2020-2024)<br>Bachelor of Business Administration<br>CGPA: <b>3.88</b></li>
         <li><strong>Gachon University, South Korea</strong> (Aug 2022- Jan 2023) <br>Bachelor of Business Administration</li>
-		<li><strong>SMK Tengku Mahkota</strong> (2018-2020)<br>Sijil Tinggi Pelajaran Malaysia<br>CGPA: 4.00</li>
+		<li><strong>SMK Tengku Mahkota</strong> (2018-2020)<br>Sijil Tinggi Pelajaran Malaysia<br>CGPA: <b>4.00</b></li>
       </ul>
     </section>
 	
@@ -265,16 +406,12 @@
     <li><strong>Operations Intern - Apple Vacations Sdn Bhd</strong> (Feb 2024 - July 2024)</li>
     </li>
     <ul style="list-style-type: disc; margin: 0 0 0 20px; padding: 0; line-height: 1.4;">
-        <li style="margin: 0;">Facilitated daily sales operations, including meticulous pre-tour preparation and post-tour analysis</li>
-        <li style="margin: 0;">Coordinated seamlessly with external stakeholders such as airlines, and internally with departments including ticketing, marketing, and sales</li>
-        <li style="margin: 0;">Played a key role in marketing efforts, specializing in video editing and crafting engaging social media content</li>
-        <li style="margin: 0;">Supported event coordination and represented the company at travel fairs</li>
+        <li style="margin: 0;"><b>Facilitated daily sales operations</b>, including meticulous pre-tour preparation and post-tour analysis.</li>
+        <li style="margin: 0;"><b>Coordinated effectively with external third-party</b> to prepare for clients trip planning. </li>
+        <li style="margin: 0;">Played a key role in <b>marketing efforts, specializing in video editing & crafting engaging social media content.</b></li>
+        <li style="margin: 0;">Supported <b>event coordination </b> & represented on behalf ofthe company at travel conventions.</li>
     </ul>
 </ul>
-
-        <!-- Space before the next job role -->
-        <li style="margin-top: 20px;"><strong>Marketing Coordinator - XYZ Ltd</strong> (2021-2023)<br>Developed content strategies that increased brand engagement.</li>
-    </ul>
 </section>
 	
 
@@ -291,7 +428,7 @@
 	<img src="Photo/photo8.jpg" alt="Gallery Image 8">
         <img src="Photo/photo9.jpg" alt="Gallery Image 9">
       </div>
-	  <br><p>Key highlights</p>
+	  <br><p><b>Key highlights</b></p>
 	    <li style="margin: 0;">Malaysian Business Student Summit 2021 and 2022</li>
         <li style="margin: 0;">Exchange programme in South Korea</li>
 		<li style="margin: 0;">Universiti Malaya Global Buddies (UMGB 2023)</li>
@@ -300,60 +437,105 @@
     <section id="skills">
       <h2>Skills</h2>
       <div class="skills">
-        <span>Basic MS Office</span>
-        <span>Team Leadership</span>
-        <span>Collaborated in Team Setting</span>
-        <span>Interpersonal Communication</span>
-		<span>Time Management</span>
-      </div>
+		  <div class="skill">
+		    <i class="fas fa-laptop"></i>
+		    <span>Basic MS Office</span>
+		  </div>
+		  <div class="skill">
+		    <i class="fas fa-users"></i>
+		    <span>Team Leadership</span>
+		  </div>
+		  <div class="skill">
+		    <i class="fas fa-handshake"></i>
+		    <span>Collaborated in Team Setting</span>
+		  </div>
+		  <div class="skill">
+		    <i class="fas fa-comments"></i>
+		    <span>Interpersonal Communication</span>
+		  </div>
+		  <div class="skill">
+		    <i class="fas fa-clock"></i>
+		    <span>Time Management</span>
+		  </div>
+		  <div class="skill">
+		    <i class="fas fa-code"></i>
+		    <span>Website Development</span>
+		  </div>
+		</div>
     </section>
 	
 	<section id="languages">
-    <h2>Languages</h2>
-    <div class="language-list" style="font-size: 16px; margin-top: 10px;">
-        <div class="language" style="margin-bottom: 15px;">
-            <span style="font-weight: bold;">Mandarin</span>
-            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-                <div style="background: #8c6239; height: 100%; width: 100%; border-radius: 4px;"></div>
-            </div>
-        </div>
-        <div class="language" style="margin-bottom: 15px;">
-            <span style="font-weight: bold;">English</span>
-            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-                <div style="background: #8c6239; height: 100%; width: 95%; border-radius: 4px;"></div>
-            </div>
-        </div>
-        <div class="language" style="margin-bottom: 15px;">
-            <span style="font-weight: bold;">Malay</span>
-            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-                <div style="background: #8c6239; height: 100%; width: 85%; border-radius: 4px;"></div>
-            </div>
-        </div>
-        <div class="language" style="margin-bottom: 15px;">
-            <span style="font-weight: bold;">Korean</span>
-            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-                <div style="background: #8c6239; height: 100%; width: 45%; border-radius: 4px;"></div>
-            </div>
-        </div>
-    </div>
-</section>
+	    <h2>Languages</h2>
+	    <div class="language-list" style="font-size: 16px; margin-top: 10px;">
+	        <div class="language" style="margin-bottom: 15px;">
+	            <span style="font-weight: bold;">Mandarin</span>
+	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+	                <div style="background: #8c6239; height: 100%; width: 100%; border-radius: 4px;"></div>
+	            </div>
+	        </div>
+	        <div class="language" style="margin-bottom: 15px;">
+	            <span style="font-weight: bold;">English</span>
+	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+	                <div style="background: #8c6239; height: 100%; width: 95%; border-radius: 4px;"></div>
+	            </div>
+	        </div>
+	        <div class="language" style="margin-bottom: 15px;">
+	            <span style="font-weight: bold;">Malay</span>
+	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+	                <div style="background: #8c6239; height: 100%; width: 85%; border-radius: 4px;"></div>
+	            </div>
+	        </div>
+	        <div class="language" style="margin-bottom: 15px;">
+	            <span style="font-weight: bold;">Korean</span>
+	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+	                <div style="background: #8c6239; height: 100%; width: 45%; border-radius: 4px;"></div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
 
 
 
 	
-	  <section id="contact">
-      <h2>Contact</h2>
-      <div class="contact">
-		<span><a class="contact-a" target="_blank" href="mailto:xinyunchuah00@gmail.com">Email: xinyunchuah00@gmail.com</a></span>
-        <span>Phone: +6014-7767388</span>
-		<span><a class="contact-a" target="_blank" href="https://www.linkedin.com/in/xinyunchuah/">Linkedin</a></span>
-      </div>
-    </section>
+	<section id="contact">
+	  <h2>Contact</h2>
+	  <div class="contact">
+	    <div class="contact-item" onclick="copyToClipboard('xinyunchuah00@gmail.com')">
+	      <i class="fas fa-envelope"></i>
+	      <a class="contact-link" target="_blank" href="mailto:xinyunchuah00@gmail.com">xinyunchuah00@gmail.com</a>
+	    </div>
+		<div class="contact-item" onclick="copyToClipboard('+6014-7767388')">
+	      <i class="fas fa-phone"></i>
+	      <span>+6014-7767388</span>
+	    </div>
+	    <div class="contact-item" >
+	      <i class="fab fa-linkedin"></i>
+	      <a class="contact-link" target="_blank" href="https://www.linkedin.com/in/xinyunchuah/">LinkedIn</a>
+	    </div>
+	  </div>
+	</section>
+
 
     <section id="referee">
-      <h2>Referee</h2>
-      <p><strong>Ms. Joey Mak</strong><br>Manager of Japan Operations<br>Apple Vacations Sdn Bhd<br>Email: joeymak@applevacations.my<br>Phone: +6016-9125198</p>
-    </section>
+	  <h2>Professional References</h2>
+	  <div class="referees">
+	    <div class="referee-card">
+	      <h3>Ms. Joey Mak</h3>
+	      <p>Manager of Japan Operations</p>
+	      <p><b>Email:</b> <a href="mailto:joeymak@applevacations.my">joeymak@applevacations.my</a></p>
+	      <p><b>Phone:</b> <a href="tel:+60169125198">+6016-9125198</a></p>
+	      <p><b>Company:</b> Apple Vacations Sdn Bhd</p>
+	    </div>
+	    <!-- Add more references below -->
+	    <div class="referee-card">
+	      <h3>Dr. Thinaranjeney Thirumoorthi</h3>
+	      <p>Senior Lecturer</p>
+	      <p><b>Email:</b> <a href="mailto:thinaranjeney@um.edu.my">thinaranjeney@um.edu.my</a></p>
+	      <p><b>Company:</b> Department of Management and Marketing @ Universiti Malaya</p>
+	    </div>
+	  </div>
+	</section>
+
 
     <footer>
       &copy; 2024 Chuah Xin Yun. All rights reserved.
@@ -396,6 +578,14 @@
       currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
       galleryImages[currentImageIndex].classList.add('active');
     }, 3000);
+
+    function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`Copied to clipboard: ${text}`);
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+  }
   </script>
 </body>
 </html>
