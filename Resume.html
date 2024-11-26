@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Resume</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f0;
+      color: #6b4f4f;
+      line-height: 1.6;
+    }
+
+    /* Side Navigation */
+    .side-nav {
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background-color: #6b4f4f;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .side-nav a {
+      display: block;
+      color: #f0e6d6;
+      text-decoration: none;
+      margin: 5px 0;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .side-nav a:hover {
+      background-color: #f0e6d6;
+      color: #6b4f4f;
+    }
+
+    /* Hamburger Icon */
+    .hamburger {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      background-color: #6b4f4f;
+      color: #f0e6d6;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1100;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .hamburger.active {
+      background-color: #f0e6d6;
+      color: #6b4f4f;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .side-nav.active {
+      left: 0;
+    }
+
+    /* Main Content */
+    .content {
+      padding: 60px 20px;
+      margin-left: 0;
+      transition: margin-left 0.3s ease;
+    }
+
+    .content.active {
+      margin-left: 250px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #6b4f4f;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 16px;
+      color: #6b4f4f;
+    }
+
+    section {
+      margin-bottom: 50px;
+      background-color: #f0e6d6;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    section h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #6b4f4f;
+      border-bottom: 2px solid #6b4f4f;
+      padding-bottom: 5px;
+    }
+
+    .skills span, .contact span {
+      display: inline-block;
+      background: #6b4f4f;
+      color: #f0e6d6;
+      padding: 8px 12px;
+      border-radius: 5px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+	
+	.contact-a{
+	color: #f0e6d6;
+	text-decoration: none;
+	
+	}
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #6b4f4f;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery img {
+      width: 100%;
+      max-height: 400px;
+      display: none;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .gallery img.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      header img {
+        width: 100px;
+        height: 100px;
+      }
+
+      header h1 {
+        font-size: 22px;
+      }
+
+      section h2 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Side Navigation -->
+  <div class="side-nav" id="sideNav">
+    <br><br><br>
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+	<a href="#experience">Experience</a>
+    <a href="#gallery">Gallery</a>
+	<a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+	<a href="#referee">Referee</a>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <button class="hamburger" id="hamburger">&#9776;</button>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main Content -->
+  <div class="content" id="content">
+    <header>
+      <img src="photo/profile.jpeg" alt="Profile Picture">
+      <h1>Chuah Xin Yun</h1>
+      <p>Open to role: Marketing Executive | Digital Marketing</p>
+    </header>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Results-driven fresh graduate with a Bachelor of Business Administration from Universiti Malaya. Proven track record in leadership, strategic planning, and team collaboration in university events. Known for excellent communication skills and strong execution skills.</p>
+    </section>
+	
+    <section id="education">
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Universiti Malaya</strong> (2020-2024)<br>Bachelor of Business Administration<br>CGPA: 3.88</li>
+        <li><strong>Gachon University, South Korea</strong> (Aug 2022- Jan 2023) <br>Bachelor of Business Administration</li>
+		<li><strong>SMK Tengku Mahkota</strong> (2018-2020)<br>Sijil Tinggi Pelajaran Malaysia<br>CGPA: 4.00</li>
+      </ul>
+    </section>
+	
+	<section id="experience">
+      <h2>Experience</h2>
+      <ul>
+    <ul>
+    <li><strong>Operations Intern - Apple Vacations Sdn Bhd</strong> (Feb 2024 - July 2024)</li>
+    </li>
+    <ul style="list-style-type: disc; margin: 0 0 0 20px; padding: 0; line-height: 1.4;">
+        <li style="margin: 0;">Facilitated daily sales operations, including meticulous pre-tour preparation and post-tour analysis</li>
+        <li style="margin: 0;">Coordinated seamlessly with external stakeholders such as airlines, and internally with departments including ticketing, marketing, and sales</li>
+        <li style="margin: 0;">Played a key role in marketing efforts, specializing in video editing and crafting engaging social media content</li>
+        <li style="margin: 0;">Supported event coordination and represented the company at travel fairs</li>
+    </ul>
+</ul>
+
+        <!-- Space before the next job role -->
+        <li style="margin-top: 20px;"><strong>Marketing Coordinator - XYZ Ltd</strong> (2021-2023)<br>Developed content strategies that increased brand engagement.</li>
+    </ul>
+</section>
+	
+
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery" id="gallery">
+        <img src="photo/photo1.png" alt="Gallery Image 1" class="active">
+        <img src="photo/photo2.png" alt="Gallery Image 2">
+        <img src="photo/photo3.png" alt="Gallery Image 3">
+		<img src="photo/photo4.jpg" alt="Gallery Image 4">
+        <img src="photo/photo5.jpg" alt="Gallery Image 5">
+		<img src="photo/photo6.jpg" alt="Gallery Image 6">
+        <img src="photo/photo7.jpg" alt="Gallery Image 7">
+		<img src="photo/photo8.jpg" alt="Gallery Image 8">
+        <img src="photo/photo9.jpg" alt="Gallery Image 9">
+      </div>
+	  <br><p>Key highlights</p>
+	    <li style="margin: 0;">Malaysian Business Student Summit 2021 and 2022</li>
+        <li style="margin: 0;">Exchange programme in South Korea</li>
+		<li style="margin: 0;">Universiti Malaya Global Buddies (UMGB 2023)</li>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <span>Basic MS Office</span>
+        <span>Team Leadership</span>
+        <span>Collaborated in Team Setting</span>
+        <span>Interpersonal Communication</span>
+		<span>Time Management</span>
+      </div>
+    </section>
+	
+	<section id="languages">
+    <h2>Languages</h2>
+    <div class="language-list" style="font-size: 16px; margin-top: 10px;">
+        <div class="language" style="margin-bottom: 15px;">
+            <span style="font-weight: bold;">Mandarin</span>
+            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+                <div style="background: #8c6239; height: 100%; width: 100%; border-radius: 4px;"></div>
+            </div>
+        </div>
+        <div class="language" style="margin-bottom: 15px;">
+            <span style="font-weight: bold;">English</span>
+            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+                <div style="background: #8c6239; height: 100%; width: 95%; border-radius: 4px;"></div>
+            </div>
+        </div>
+        <div class="language" style="margin-bottom: 15px;">
+            <span style="font-weight: bold;">Malay</span>
+            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+                <div style="background: #8c6239; height: 100%; width: 85%; border-radius: 4px;"></div>
+            </div>
+        </div>
+        <div class="language" style="margin-bottom: 15px;">
+            <span style="font-weight: bold;">Korean</span>
+            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
+                <div style="background: #8c6239; height: 100%; width: 45%; border-radius: 4px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+	
+	  <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact">
+		<span><a class="contact-a" target="_blank" href="mailto:xinyunchuah00@gmail.com">Email: xinyunchuah00@gmail.com</a></span>
+        <span>Phone: +6014-7767388</span>
+		<span><a class="contact-a" target="_blank" href="https://www.linkedin.com/in/xinyunchuah/">Linkedin</a></span>
+      </div>
+    </section>
+
+    <section id="referee">
+      <h2>Referee</h2>
+      <p><strong>Ms. Joey Mak</strong><br>Manager of Japan Operations<br>Apple Vacations Sdn Bhd<br>Email: joeymak@applevacations.my<br>Phone: +6016-9125198</p>
+    </section>
+
+    <footer>
+      &copy; 2024 Chuah Xin Yun. All rights reserved.
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sideNav = document.getElementById('sideNav');
+    const overlay = document.getElementById('overlay');
+    const content = document.getElementById('content');
+    const galleryImages = document.querySelectorAll('.gallery img');
+
+    // Hamburger Menu Logic
+    hamburger.addEventListener('click', () => {
+      sideNav.classList.toggle('active');
+      overlay.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sideNav.classList.remove('active');
+      overlay.classList.remove('active');
+      hamburger.classList.remove('active');
+    });
+
+    content.addEventListener('click', () => {
+      if (sideNav.classList.contains('active')) {
+        sideNav.classList.remove('active');
+        overlay.classList.remove('active');
+        hamburger.classList.remove('active');
+      }
+    });
+
+    // Gallery Slider Logic
+    let currentImageIndex = 0;
+    setInterval(() => {
+      galleryImages[currentImageIndex].classList.remove('active');
+      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      galleryImages[currentImageIndex].classList.add('active');
+    }, 3000);
+  </script>
+</body>
+</html>
