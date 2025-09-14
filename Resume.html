@@ -1,603 +1,442 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuah Xin Yun | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a; /* Rich charcoal */
+            color: #e0e0e0; /* Soft off-white */
+            overflow-x: hidden;
+        }
 
-  <title>Xin Yun's Resume</title>
-  <style>
-    /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        #background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.5;
+        }
 
-    body {
-	  font-family: 'Poppins', sans-serif;
-	  background: linear-gradient(135deg, #f5f5f0, #e0d7cc);
-	  color: #6b4f4f;
-	  line-height: 1.6;
-	  margin: 0;
-	  padding: 0;
-	}
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
 
+        .gradient-text {
+            background: linear-gradient(to right, #F7D060, #EACDA3); /* Gold gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    /* Side Navigation */
-    .side-nav {
-      position: fixed;
-      left: -250px;
-      top: 0;
-      width: 250px;
-      height: 100%;
-      background-color: #6b4f4f;
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-      transition: left 0.3s ease;
-      z-index: 1000;
-    }
+        .card {
+            background: rgba(34, 34, 34, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(247, 208, 96, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
 
-    .side-nav a {
-      display: block;
-      color: #f0e6d6;
-      text-decoration: none;
-      margin: 5px 0;
-      font-size: 18px;
-      padding: 10px;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-    }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -15px rgba(247, 208, 96, 0.1);
+            border-color: rgba(247, 208, 96, 0.3);
+        }
 
-    .side-nav a:hover {
-      background-color: #f0e6d6;
-      color: #6b4f4f;
-    }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #F7D060; /* Gold */
+            border: 3px solid #1a1a1a;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            box-shadow: 0 0 10px #F7D060;
+        }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(10vh);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
 
-    /* Hamburger Icon */
-    .hamburger {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      font-size: 24px;
-      background-color: #6b4f4f;
-      color: #f0e6d6;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 1100;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .hamburger.active {
-      background-color: #f0e6d6;
-      color: #6b4f4f;
-    }
+        .elegant-button {
+            background: linear-gradient(to right, #F7D060, #D6B557);
+            color: #1a1a1a;
+            box-shadow: 0 4px 15px rgba(247, 208, 96, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .elegant-button:hover {
+            box-shadow: 0 6px 20px rgba(247, 208, 96, 0.3);
+            transform: scale(1.05) translateY(-2px);
+        }
 
-    /* Overlay */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 999;
-    }
-
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .side-nav.active {
-      left: 0;
-    }
-
-    /* Main Content */
-    .content {
-      padding: 60px 20px;
-      margin-left: 0;
-      transition: margin-left 0.3s ease;
-    }
-
-    .content.active {
-      margin-left: 250px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    header img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #6b4f4f;
-      margin-bottom: 10px;
-    }
-
-    header h1 {
-      font-size: 28px;
-      margin-bottom: 5px;
-    }
-
-    header p {
-      font-size: 16px;
-      color: #6b4f4f;
-    }
-
-    section {
-      margin-bottom: 50px;
-      background-color: #f0e6d6;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    section h2 {
-      text-align: center;
-      font-size: 22px;
-      margin-bottom: 15px;
-      color: #6b4f4f;
-      border-bottom: 2px solid #6b4f4f;
-      padding-bottom: 5px;
-    }
-
-    .skills span, .contact span {
-      display: inline-block;
-      background: #6b4f4f;
-      color: #f0e6d6;
-      padding: 8px 12px;
-      border-radius: 5px;
-      margin-right: 5px;
-      margin-bottom: 5px;
-      font-size: 18px;
-    }
-
-    .skills {
-	  display: flex;
-	  flex-wrap: wrap;
-	  gap: 15px;
-	  justify-content: center;
-	  margin: 20px 0;
-	}
-
-	.skill {
-	  display: flex;
-	  align-items: center;
-	  background: #6b4f4f;
-	  color: #f0e6d6;
-	  padding: 30px 15px;
-	  border-radius: 10px;
-	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-	  transition: transform 0.3s, box-shadow 0.3s;
-	}
-
-	.skill:hover {
-	  transform: translateY(-5px);
-	  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-	}
-
-	.skill i {
-	  margin-right: 10px;
-	  font-size: 18px;
-	  color: #f0e6d6;
-	}
-
-	.skill span {
-	  font-size: 16px;
-	  font-weight: 500;
-	}
-
-	
-	.contact-a{
-	color: #f0e6d6;
-	text-decoration: none;
-	
-	}
-
-	#contact h2 {
-	  text-align: center;
-	  font-size: 24px;
-	  color: #6b4f4f;
-	  margin-bottom: 20px;
-	}
-
-	.contact {
-	  display: flex;
-	  flex-wrap: wrap;
-	  justify-content: center;
-	  gap: 20px;
-	}
-
-	.contact-item {
-	  display: flex;
-	  align-items: center;
-	  background: #6b4f4f;
-	  color: #f0e6d6;
-	  padding: 30px 15px;
-	  border-radius: 10px;
-	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-	  transition: transform 0.3s, box-shadow 0.3s;
-	}
-
-	.contact-item:hover {
-	  transform: translateY(-5px);
-	  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-	}
-
-	.contact-item i {
-	  margin-right: 10px;
-	  font-size: 20px;
-	  color: #f0e6d6;
-	}
-
-	.contact-link {
-	  color: #f0e6d6;
-	  text-decoration: none;
-	  font-size: 16px;
-	}
-
-	.contact-link:hover {
-	  text-decoration: underline;
-	}
-
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    ul li {
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #6b4f4f;
-    }
-
-    /* Gallery Section */
-    .gallery {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .gallery img {
-      width: 70%;
-      height: 400px;
-      display: none;
-      transition: opacity 1s ease-in-out;
-    }
-
-    .gallery img.active {
-      display: block;
-      opacity: 1;
-    }
-
-    #referee h2 {
-	  text-align: center;
-	  font-size: 24px;
-	  color: #6b4f4f;
-	  margin-bottom: 20px;
-	}
-
-	.referees {
-	  display: flex;
-	  flex-wrap: wrap;
-	  justify-content: center;
-	  gap: 20px;
-	}
-
-	.referee-card {
-	  background: #f0e6d6;
-	  color: #6b4f4f;
-	  border: 1px solid #6b4f4f;
-	  border-radius: 10px;
-	  padding: 15px;
-	  width: 300px;
-	  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-	  transition: transform 0.3s, box-shadow 0.3s;
-	}
-
-	.referee-card:hover {
-	  transform: translateY(-5px);
-	  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
-	}
-
-	.referee-card h3 {
-	  margin: 0;
-	  font-size: 18px;
-	  color: #6b4f4f;
-	}
-
-	.referee-card p {
-	  margin: 5px 0;
-	  font-size: 14px;
-	}
-
-	.referee-card a {
-	  color: #6b4f4f;
-	  text-decoration: none;
-	}
-
-	.referee-card a:hover {
-	  text-decoration: underline;
-	}
-
-
-
-    /* Media Queries */
-    @media (max-width: 768px) {
-      header img {
-        width: 100px;
-        height: 100px;
-      }
-
-      header h1 {
-        font-size: 22px;
-      }
-
-      section h2 {
-        font-size: 18px;
-      }
-    }
-  </style>
+        .skill-tag {
+            background-color: rgba(247, 208, 96, 0.05);
+            color: #F7D060;
+            border: 1px solid rgba(247, 208, 96, 0.2);
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            background-color: rgba(247, 208, 96, 0.15);
+            color: #fff;
+        }
+        
+        header {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(247, 208, 96, 0.1);
+        }
+    </style>
 </head>
-<body>
-  <!-- Side Navigation -->
-  <div class="side-nav" id="sideNav">
-    <br><br><br>
-    <a href="#about">About</a>
-    <a href="#education">Education</a>
-	<a href="#experience">Experience</a>
-    <a href="#gallery">Gallery</a>
-	<a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-	<a href="#referee">References</a>
-  </div>
 
-  <!-- Hamburger Icon -->
-  <button class="hamburger" id="hamburger">&#9776;</button>
+<body class="antialiased">
+    <canvas id="background-canvas"></canvas>
 
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
+    <div class="content-wrapper">
+        <!-- Header -->
+        <header class="sticky top-0 z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold gradient-text font-playfair">Chuah Xin Yun</div>
+                <div class="hidden md:flex space-x-8 font-semibold">
+                    <a href="#about" class="text-gray-300 hover:text-yellow-300 transition-colors">About</a>
+                    <a href="#journey" class="text-gray-300 hover:text-yellow-300 transition-colors">Journey</a>
+                    <a href="#experience" class="text-gray-300 hover:text-yellow-300 transition-colors">Experience</a>
+                    <a href="#skills" class="text-gray-300 hover:text-yellow-300 transition-colors">Skills</a>
+                    <a href="#referees" class="text-gray-300 hover:text-yellow-300 transition-colors">Referees</a>
+                    <a href="#contact" class="text-gray-300 hover:text-yellow-300 transition-colors">Contact</a>
+                </div>
+                <div class="md:hidden">
+                     <button id="mobile-menu-button" class="text-gray-300 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            <div id="mobile-menu" class="hidden md:hidden">
+                <a href="#about" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">About</a>
+                <a href="#journey" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Journey</a>
+                <a href="#experience" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Experience</a>
+                <a href="#skills" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Skills</a>
+                <a href="#referees" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Referees</a>
+                <a href="#contact" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Contact</a>
+            </div>
+        </header>
 
-  <!-- Main Content -->
-  <div class="content" id="content">
-    <header>
-      <img src="Photo/profile.jpeg" alt="Profile Picture">
-      <h1>Chuah Xin Yun</h1>
-      <p>Open to role: Marketing Executive | Digital Marketing</p>
-    </header>
+        <main class="container mx-auto px-6 py-12 md:py-20">
+            <!-- Hero Section -->
+            <section class="h-screen flex flex-col justify-center items-start text-left min-h-[700px]">
+                <p class="text-yellow-300 text-lg font-semibold mb-4 fade-in-section" style="transition-delay: 100ms;">Hello, I'm</p>
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-playfair font-extrabold text-white mb-4 fade-in-section" style="transition-delay: 200ms;">Chuah Xin Yun.</h1>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-gray-400 mb-8 fade-in-section" style="transition-delay: 300ms;">Program Coordinator &amp; Business Strategist.</h2>
+                <p class="max-w-xl text-lg text-gray-300 mb-10 fade-in-section" style="transition-delay: 400ms;">
+                    I leverage a First-Class Honours education and professional experience at PwC to drive impactful projects and foster strategic growth.
+                </p>
+                <a href="#journey" class="elegant-button py-3 px-8 rounded-full text-lg fade-in-section" style="transition-delay: 500ms;">
+                    Explore My Journey
+                </a>
+            </section>
 
-    <section id="about">
-      <h2>About Me</h2>
-      <p>Results-driven fresh graduate with a Bachelor of Business Administration from Universiti Malaya. Proven track record in <b>leadership, strategic planning, and team collaboration</b> in university events. Known for <b>excellent communication skills and strong execution skills</b>.</p>
-    </section>
-	
-    <section id="education">
-  <h2>Education</h2>
-  <ul>
-    <li>
-      <u><strong>Universiti Malaya</strong></u> (2020-2024)<br>
-      Bachelor of Business Administration<br>
-      CGPA: <b>3.88</b>
-    </li>
-    <li>
-      <u><strong>Gachon University, South Korea</strong></u> (Aug 2022 - Jan 2023)<br>
-      Bachelor of Business Administration
-    </li>
-    <li>
-      <u><strong>SMK Tengku Mahkota</strong></u> (2018-2019)<br>
-      Sijil Tinggi Pelajaran Malaysia<br>
-      CGPA: <b>4.00</b>
-    </li>
-  </ul>
-</section>
+            <!-- About Me Section -->
+            <section id="about" class="py-20 fade-in-section">
+                 <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold font-playfair text-white">About Me</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-300 mx-auto mt-4 rounded"></div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                    <div class="md:w-1/3 w-full">
+                        <div class="relative group transition-transform duration-300 ease-in-out hover:scale-105">
+                           <div class="absolute -inset-0.5 bg-gradient-to-r from-yellow-600 to-amber-400 rounded-lg blur opacity-20 group-hover:opacity-50 transition duration-1000 group-hover:duration-300"></div>
+                            <img class="relative rounded-lg w-full shadow-2xl" src="me.jpg" alt="Chuah Xin Yun">
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 text-lg text-gray-300 leading-relaxed space-y-4">
+                         <p>
+                           With a strong foundation in Business Administration from the University of Malaya, my academic excellence is a testament to my dedication and ability to master complex subjects. My journey has been one of consistent high achievement, culminating in a First-Class Honours degree.
+                        </p>
+                        <p>
+                            In my role at PwC, I orchestrate multifaceted programs, ensuring they meet deadlines and strategic objectives. I thrive in dynamic environments where my skills in project management, stakeholder communication, and process optimization can drive tangible results. I am passionate about taking on new challenges and contributing to impactful projects that shape the future.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-	
-	<section id="experience">
-      <h2>Experience</h2>
-      <ul>
-    <ul>
-    <li><strong>Operations Intern - Apple Vacations Sdn Bhd</strong> (Feb 2024 - July 2024)</li>
-    </li>
-    <ul style="list-style-type: disc; margin: 0 0 0 20px; padding: 0; line-height: 1.4;">
-        <li style="margin: 0;"><b>Facilitated daily sales operations</b>, including meticulous pre-tour preparation and post-tour analysis.</li>
-        <li style="margin: 0;"><b>Coordinated effectively with external third-party</b> to prepare for clients trip planning. </li>
-        <li style="margin: 0;">Played a key role in <b>marketing efforts, specializing in video editing & crafting engaging social media content.</b></li>
-        <li style="margin: 0;">Supported <b>event coordination </b> & represented on behalf ofthe company at travel conventions.</li>
-    </ul>
-</ul>
-</section>
-	
+            <!-- Journey / Timeline Section -->
+            <section id="journey" class="py-20 fade-in-section">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold font-playfair text-white">My Journey</h2>
+                    <p class="text-lg text-gray-400 mt-3">A timeline of my key milestones and achievements.</p>
+                     <div class="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-300 mx-auto mt-4 rounded"></div>
+                </div>
+                <div class="relative max-w-2xl mx-auto border-l-2 border-gray-700 pl-10">
+                    <!-- Timeline Items -->
+                    <div class="mb-12 relative timeline-item">
+                        <div class="card p-6">
+                            <p class="text-sm text-yellow-300 font-semibold mb-1">March 2024 - Present</p>
+                            <h3 class="text-xl font-bold mb-2 text-white">Program Coordinator @ PwC Malaysia</h3>
+                            <p class="text-gray-400">Within Learning & Development, I manage firm data to optimize training deployment and manage communications for program marketing. My role involves continuous process improvement of systems and workflows, coordinating with stakeholders on technical requirements, and ensuring precise learner targeting for impactful program management.</p>
+                        </div>
+                    </div>
+                     <div class="mb-12 relative timeline-item">
+                        <div class="card p-6">
+                            <p class="text-sm text-yellow-300 font-semibold mb-1">Feb 2024 - July 2024</p>
+                            <h3 class="text-xl font-bold mb-2 text-white">Intern @ Apple Vacations Sdn Bhd</h3>
+                            <p class="text-gray-400">Facilitated operations and marketing efforts, specializing in video editing and crafting social media content. Supported event coordination and contributed to digital marketing campaigns.</p>
+                        </div>
+                    </div>
+                    <div class="mb-12 relative timeline-item">
+                         <div class="card p-6">
+                            <p class="text-sm text-yellow-300 font-semibold mb-1">2020 - 2024</p>
+                            <h3 class="text-xl font-bold mb-2 text-white">BBA @ University of Malaya</h3>
+                            <p class="text-gray-400">Graduated with First-Class Honours (CGPA: <strong>3.88</strong>). Key leadership roles include supporting exchangees from 33 countries with University Malaya Global Buddies (UMGB 2023) and serving as External Deputy Director for the Malaysian Business Student Summit (MBSS 2021 & 2022).</p>
+                        </div>
+                    </div>
+                    <div class="mb-12 relative timeline-item">
+                         <div class="card p-6">
+                            <p class="text-sm text-yellow-300 font-semibold mb-1">2018 - 2019</p>
+                            <h3 class="text-xl font-bold mb-2 text-white">STPM @ Pre-University</h3>
+                            <p class="text-gray-400">Achieved a perfect CGPA of <strong>4.0</strong>, demonstrating exceptional academic discipline and a strong foundation for higher education.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Experience at PwC -->
+            <section id="experience" class="py-20 fade-in-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-4xl md:text-5xl font-bold font-playfair text-white">Experience at PwC</h2>
+                    <p class="text-lg text-gray-400 mt-3">March 2024 - Present | Program Coordinator</p>
+                     <div class="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-300 mx-auto mt-4 rounded"></div>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-8 text-center">
+                        <div class="flex justify-center mb-4"><div class="text-yellow-300"><i data-lucide="bar-chart-big" class="w-10 h-10"></i></div></div>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Project Tracking</h3>
+                        <p class="text-gray-400">Monitored project progress against timelines and budgets, creating insightful reports for senior management.</p>
+                    </div>
+                    <div class="card p-8 text-center">
+                        <div class="flex justify-center mb-4"><div class="text-yellow-300"><i data-lucide="users-2" class="w-10 h-10"></i></div></div>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Stakeholder Liaison</h3>
+                        <p class="text-gray-400">Served as the primary liaison for stakeholders, ensuring clear communication and effective issue resolution.</p>
+                    </div>
+                    <div class="card p-8 text-center">
+                        <div class="flex justify-center mb-4"><div class="text-yellow-300"><i data-lucide="trending-up" class="w-10 h-10"></i></div></div>
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Process Improvement</h3>
+                        <p class="text-gray-400">Identified and implemented workflow enhancements that boosted operational efficiency by 15%.</p>
+                    </div>
+                </div>
+            </section>
 
-    <section id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery" id="gallery">
-        <img src="Photo/photo1.png" alt="Gallery Image 1" class="active">
-        <img src="Photo/photo2.png" alt="Gallery Image 2">
-        <img src="Photo/photo3.png" alt="Gallery Image 3">
-	<img src="Photo/photo4.jpg" alt="Gallery Image 4">
-        <img src="Photo/photo5.jpg" alt="Gallery Image 5">
-	<img src="Photo/photo6.jpg" alt="Gallery Image 6">
-        <img src="Photo/photo7.jpg" alt="Gallery Image 7">
-	<img src="Photo/photo8.jpg" alt="Gallery Image 8">
-        <img src="Photo/photo9.jpg" alt="Gallery Image 9">
-      </div>
-	  <br><p><b>Key highlights</b></p>
-	    <li style="margin: 0;">Malaysian Business Student Summit 2021 and 2022</li>
-        <li style="margin: 0;">Exchange programme in South Korea</li>
-		<li style="margin: 0;">Universiti Malaya Global Buddies (UMGB 2023)</li>
-    </section>
+            <!-- Skills Section -->
+            <section id="skills" class="py-20 fade-in-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold font-playfair text-white">Professional Skills</h2>
+                     <div class="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-300 mx-auto mt-4 rounded"></div>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                     <div class="flex flex-wrap justify-center gap-4">
+                        <span class="skill-tag text-md font-medium px-5 py-2 rounded-full">Project Management</span>
+                        <span class="skill-tag text-md font-medium px-5 py-2 rounded-full">Stakeholder Communication</span>
+                        <span class="skill-tag text-md font-medium px-5 py-2 rounded-full">Data Analysis</span>
+                        <span class="skill-tag text-md font-medium px-5 py-2 rounded-full">Risk Assessment</span>
+                        <span class="skill-tag text-md font-medium px-5 py-2 rounded-full">Process Optimization</span>
+                        <span class="skill-tag text-md font-medium px-5 py-2 rounded-full">Microsoft Office Suite</span>
+                        <span class="skill-tag text-md font-medium px-5 py-2 rounded-full">Public Speaking</span>
+                    </div>
+                </div>
+            </section>
 
-    <section id="skills">
-      <h2>Skills</h2>
-      <div class="skills">
-		  <div class="skill">
-		    <i class="fas fa-laptop"></i>
-		    <span>Basic MS Office</span>
-		  </div>
-		  <div class="skill">
-		    <i class="fas fa-users"></i>
-		    <span>Team Leadership</span>
-		  </div>
-		  <div class="skill">
-		    <i class="fas fa-handshake"></i>
-		    <span>Collaborated in Team Setting</span>
-		  </div>
-		  <div class="skill">
-		    <i class="fas fa-comments"></i>
-		    <span>Interpersonal Communication</span>
-		  </div>
-		  <div class="skill">
-		    <i class="fas fa-clock"></i>
-		    <span>Time Management</span>
-		  </div>
-		  <div class="skill">
-		    <i class="fas fa-code"></i>
-		    <span>Website Development</span>
-		  </div>
-		</div>
-    </section>
-	
-	<section id="languages">
-	    <h2>Languages</h2>
-	    <div class="language-list" style="font-size: 16px; margin-top: 10px;">
-	        <div class="language" style="margin-bottom: 15px;">
-	            <span style="font-weight: bold;">Mandarin</span>
-	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-	                <div style="background: #8c6239; height: 100%; width: 100%; border-radius: 4px;"></div>
-	            </div>
-	        </div>
-	        <div class="language" style="margin-bottom: 15px;">
-	            <span style="font-weight: bold;">English</span>
-	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-	                <div style="background: #8c6239; height: 100%; width: 95%; border-radius: 4px;"></div>
-	            </div>
-	        </div>
-	        <div class="language" style="margin-bottom: 15px;">
-	            <span style="font-weight: bold;">Malay</span>
-	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-	                <div style="background: #8c6239; height: 100%; width: 85%; border-radius: 4px;"></div>
-	            </div>
-	        </div>
-	        <div class="language" style="margin-bottom: 15px;">
-	            <span style="font-weight: bold;">Korean</span>
-	            <div style="background: #f0e6d5; height: 8px; width: 60%; border-radius: 4px; margin-top: 5px;">
-	                <div style="background: #8c6239; height: 100%; width: 45%; border-radius: 4px;"></div>
-	            </div>
-	        </div>
-	    </div>
-	</section>
+            <!-- Referees Section -->
+            <section id="referees" class="py-20 fade-in-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold font-playfair text-white">Referee</h2>
+                     <div class="w-24 h-1 bg-gradient-to-r from-yellow-500 to-yellow-300 mx-auto mt-4 rounded"></div>
+                </div>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                    <!-- Referee 1 Card -->
+                    <div class="card p-6 text-left space-y-2">
+                        <h3 class="text-xl font-bold text-white">Ms Joey Mak</h3>
+                        <p class="text-yellow-300 font-semibold">Manager of Japan Operations, Apple Vacations Sdn Bhd</p>
+                        <div class="pt-2">
+                            <p class="text-gray-400 flex items-center"><i data-lucide="phone" class="inline-block w-4 h-4 mr-3"></i> 016-912 5198</p>
+                            <p class="text-gray-400 flex items-center"><i data-lucide="mail" class="inline-block w-4 h-4 mr-3"></i> joeymak@applevacations.my</p>
+                        </div>
+                    </div>
+                    <!-- Referee 2 Card -->
+                    <div class="card p-6 text-left space-y-2">
+                        <h3 class="text-xl font-bold text-white">Dr. Thinaranjeney Thirumoorthi</h3>
+                        <p class="text-yellow-300 font-semibold">Senior Lecturer, Department of Management and Marketing, University of Malaya</p>
+                        <div class="pt-2">
+                             <p class="text-gray-400 flex items-center"><i data-lucide="mail" class="inline-block w-4 h-4 mr-3"></i> thinaranjeney@um.edu.my</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-20 fade-in-section">
+                <div class="text-center mb-12 max-w-2xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold font-playfair text-white">Get In Touch</h2>
+                    <p class="text-lg text-gray-400 mt-4">I'm currently open to new opportunities and collaborations. Whether you have a question or just want to connect, I would be delighted to hear from you.</p>
+                </div>
+                 <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 mb-12 text-lg">
+                    <a href="tel:+60147767388" class="flex items-center text-gray-300 hover:text-yellow-300 transition-colors"><i data-lucide="phone" class="w-5 h-5 mr-2"></i> 014-776 7388</a>
+                    <a href="mailto:xinyunchuah00@gmail.com" class="flex items-center text-gray-300 hover:text-yellow-300 transition-colors"><i data-lucide="mail" class="w-5 h-5 mr-2"></i> xinyunchuah00@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/xinyunchuah" target="_blank" rel="noopener noreferrer" class="flex items-center text-gray-300 hover:text-yellow-300 transition-colors"><i data-lucide="linkedin" class="w-5 h-5 mr-2"></i> LinkedIn</a>
+                </div>
+                <div class="text-center">
+                     <a href="mailto:xinyunchuah00@gmail.com" class="elegant-button font-bold py-4 px-10 rounded-full text-xl">
+                        Say Hello
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="py-6">
+            <div class="container mx-auto px-6 text-center text-gray-500">
+                <p>Elegantly Crafted by CXY with Gemini</p>
+                <p>&copy; 2025 Chuah Xin Yun. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // --- Elegant Background Animation ---
+        const canvas = document.getElementById('background-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let orbs = [];
+
+        class Orb {
+            constructor(x, y, radius, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+            }
+
+            draw() {
+                ctx.beginPath();
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'rgba(247, 208, 96, 0)');
+                ctx.fillStyle = gradient;
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) {
+                    this.vx *= -1;
+                }
+                if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
+                    this.vy *= -1;
+                }
+                this.draw();
+            }
+        }
+
+        function init() {
+            orbs = [];
+            const orbCount = Math.floor((canvas.width * canvas.height) / 40000);
+            for (let i = 0; i < orbCount; i++) {
+                const radius = Math.random() * 80 + 40;
+                const x = Math.random() * (canvas.width - radius * 2) + radius;
+                const y = Math.random() * (canvas.height - radius * 2) + radius;
+                const color = `rgba(247, 208, 96, ${Math.random() * 0.2 + 0.05})`;
+                orbs.push(new Orb(x, y, radius, color));
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const orb of orbs) {
+                orb.update();
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
 
 
+        // --- Mobile Menu Toggle ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
 
-	
-	<section id="contact">
-	  <h2>Contact</h2>
-	  <div class="contact">
-	    <div class="contact-item" onclick="copyToClipboard('xinyunchuah00@gmail.com')">
-	      <i class="fas fa-envelope"></i>
-	      <a class="contact-link" target="_blank" href="mailto:xinyunchuah00@gmail.com">xinyunchuah00@gmail.com</a>
-	    </div>
-		<div class="contact-item" onclick="copyToClipboard('+6014-7767388')">
-	      <i class="fas fa-phone"></i>
-	      <span>+6014-7767388</span>
-	    </div>
-	    <div class="contact-item" >
-	      <i class="fab fa-linkedin"></i>
-	      <a class="contact-link" target="_blank" href="https://www.linkedin.com/in/xinyunchuah/">LinkedIn</a>
-	    </div>
-	  </div>
-	</section>
+        // --- Scroll Animations ---
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // --- Animate hero on load ---
+        window.addEventListener('load', () => {
+            document.querySelector('section.h-screen').querySelectorAll('.fade-in-section').forEach(el => {
+                 el.classList.add('is-visible');
+            });
+        });
 
-
-    <section id="referee">
-	  <h2>Professional References</h2>
-	  <div class="referees">
-	    <div class="referee-card">
-	      <h3>Ms. Joey Mak</h3>
-	      <p>Manager of Japan Operations</p>
-	      <p><b>Email:</b> <a href="mailto:joeymak@applevacations.my">joeymak@applevacations.my</a></p>
-	      <p><b>Phone:</b> <a href="tel:+60169125198">+6016-9125198</a></p>
-	      <p><b>Company:</b> Apple Vacations Sdn Bhd</p>
-	    </div>
-	    <!-- Add more references below -->
-	    <div class="referee-card">
-	      <h3>Dr. Thinaranjeney Thirumoorthi</h3>
-	      <p>Senior Lecturer</p>
-	      <p><b>Email:</b> <a href="mailto:thinaranjeney@um.edu.my">thinaranjeney@um.edu.my</a></p>
-	      <p><b>Company:</b> Department of Management and Marketing @ Universiti Malaya</p>
-	    </div>
-	  </div>
-	</section>
-
-
-    <footer>
-      &copy; 2024 Chuah Xin Yun. All rights reserved.
-    </footer>
-  </div>
-
-  <!-- JavaScript -->
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const sideNav = document.getElementById('sideNav');
-    const overlay = document.getElementById('overlay');
-    const content = document.getElementById('content');
-    const galleryImages = document.querySelectorAll('.gallery img');
-
-    // Hamburger Menu Logic
-    hamburger.addEventListener('click', () => {
-      sideNav.classList.toggle('active');
-      overlay.classList.toggle('active');
-      hamburger.classList.toggle('active');
-    });
-
-    overlay.addEventListener('click', () => {
-      sideNav.classList.remove('active');
-      overlay.classList.remove('active');
-      hamburger.classList.remove('active');
-    });
-
-    content.addEventListener('click', () => {
-      if (sideNav.classList.contains('active')) {
-        sideNav.classList.remove('active');
-        overlay.classList.remove('active');
-        hamburger.classList.remove('active');
-      }
-    });
-
-    // Gallery Slider Logic
-    let currentImageIndex = 0;
-    setInterval(() => {
-      galleryImages[currentImageIndex].classList.remove('active');
-      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-      galleryImages[currentImageIndex].classList.add('active');
-    }, 3000);
-
-    function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert(`Copied to clipboard: ${text}`);
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
-  }
-  </script>
+    </script>
 </body>
+
 </html>
+
